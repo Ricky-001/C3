@@ -16,7 +16,7 @@
 # MANDATORY REQUIREMENTS:-
 
 * python2.7
-* PYTHON MODULE DEPENDENCY LIST:-
+PYTHON MODULE DEPENDENCY LIST:-
 
 	> socket
 	> termcolor
@@ -51,6 +51,7 @@
 	* Capturing image/ video from the Default Webcam
 	* Log keystrokes (keylogger)
 	* Taking a screenshot of the victim's current screen
+
 -> These records can then be sent back to the attacker machine
 
 - To get a full list of possible commands that can be issued, the handler can issue the HELP command
