@@ -53,7 +53,6 @@ echo "------------------------"
 echo
 echo "[*] You can leave the following fields empty if carrying out attacks within the LAN."
 echo "[*] For over the network attacks, YOU MUST SPECIFY proper address and port number"
-echo
 echo "for the payload to connect back to."
 echo
 read -p "Enter the IP address to connect back to : " connect_ip
