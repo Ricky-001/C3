@@ -1,6 +1,6 @@
-=============================
-# REVERSE_SHELL AND HANDLER #
-#============================
+
+# REVERSE_SHELL AND HANDLER 
+
 
 1) handler.py HANDLES THE CONTROLS OF THE PAYLOAD
 2) CORRESPONDING reverse_shell.py SCRIPT
@@ -17,6 +17,7 @@
 
 * python2.7
 * PYTHON MODULE DEPENDENCY LIST:-
+
 	> socket
 	> termcolor
 	> os
@@ -50,7 +51,7 @@
 	* Capturing image/ video from the Default Webcam
 	* Log keystrokes (keylogger)
 	* Taking a screenshot of the victim's current screen
-~ These records can then be sent back to the attacker machine
+-> These records can then be sent back to the attacker machine
 
 - To get a full list of possible commands that can be issued, the handler can issue the HELP command
 	- Note that this overrides the command line 'help' command available in most systems.
