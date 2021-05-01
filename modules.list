@@ -1,0 +1,7 @@
+sockets
+termcolor
+requests
+mss==4.0.2
+PyAudio
+wave
+Pynput
