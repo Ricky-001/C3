@@ -36,6 +36,13 @@ PYTHON MODULE DEPENDENCY LIST:-
 	> wave
 	> Pynput
 
+* A 'modules.list' file has been provided for easy installation of the python modules through pip
+* A "REQUIRED_INSTALLATIONS.sh" file has been provided to automate setting up the required dependencies, like 
+	- Python2
+	- All required packages 
+	- And their corresponding dependencies
+* This script can be run prior to running the original script as a one-time setup of the environment.
+
 ------------------------------------------------------------------------------------------------------------------------------------------------
 
 
