@@ -2,6 +2,18 @@
 # REVERSE_SHELL AND HANDLER 
 
 
+------------------------------------------------------------------------------------------------------------------------------------------------
+
+## Update for the Sainya Ranakshetram Level III SDR Challenge
+The included EXE file has been created during the demonstration, where the target and the attacker machine were part of the same 192.168.0.X network
+* The EXE file will work unmodified if used in a similar environment with the attacker machine bearing Local IP address of 192.168.0.104
+
+To execute in a clean environment:- 
+* The attacker machine is supposed to run a Linux environment (Debian distro), where the REQUIRED_INSTALLATIONS.sh and C3.sh scripts can be run in order to set up the exploit EXE for a Windows based target.
+* For a Windows attacker, the system must support Python and Pyinstaller, with the respective dependencies from modules.list available. Thereafter, the exploit binary can be created with the command given in C3.sh lines 101, 102, 103
+
+------------------------------------------------------------------------------------------------------------------------------------------------
+
 1) handler.py HANDLES THE CONTROLS OF THE PAYLOAD
 2) CORRESPONDING reverse_shell.py SCRIPT
 3) DEPENDEDNT AND INCLUDED SCRIPTS - keyLogger.py ; soundRecorder.py
